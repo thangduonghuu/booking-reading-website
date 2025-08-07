@@ -1,45 +1,42 @@
-'use client';
-import Image from "next/image";
-import { useEffect } from "react";
+'use client'
 
-export default function HomeSection() {
+import { useEffect } from 'react'
+import { Howl } from 'howler'
+
+export default function BackgroundMusic() {
   useEffect(() => {
     const sound = new Howl({
-      src: ['https://static.thangduong.info/public/background-chill.mp3'], // replace with your public path
-      autoplay: true,
+      src: ['https://static.thangduong.info/public/background-chill.mp3'],
       loop: true,
       volume: 1.0,
       html5: true,
-      mute: true, // muted initially to allow autoplay
-      onplay: () => {
-        sound.mute(false) // unmute after it starts
-      },
-      onloaderror: (id, err) => {
-        console.error('Load error:', err)
-      },
-      onplayerror: (id, err) => {
-        console.warn('Autoplay failed. Waiting for user interaction...')
-        const resumeOnClick = () => {
-          sound.play()
-          window.removeEventListener('click', resumeOnClick)
-        }
-        window.addEventListener('click', resumeOnClick, { once: true })
-      }
+      mute: true, // allow autoplay
     })
+
+    const startPlayback = () => {
+      sound.play()
+      sound.once('play', () => {
+        sound.mute(false)
+        console.log('Music started')
+      })
+
+      // Remove listeners after first interaction
+      window.removeEventListener('click', startPlayback)
+      window.removeEventListener('keydown', startPlayback)
+      window.removeEventListener('touchstart', startPlayback)
+    }
+
+    window.addEventListener('click', startPlayback, { once: true })
+    window.addEventListener('keydown', startPlayback, { once: true })
+    window.addEventListener('touchstart', startPlayback, { once: true })
 
     return () => {
       sound.unload()
+      window.removeEventListener('click', startPlayback)
+      window.removeEventListener('keydown', startPlayback)
+      window.removeEventListener('touchstart', startPlayback)
     }
   }, [])
 
-  return (
-    <div className='flex flex-col items-center justify-center h-screen absolute w-full'>
-      <Image
-        src="/images/home-book.png"
-        alt="Home"
-        fill
-        objectFit='contain'
-      />
-    </div>
-  );
+  return null
 }
