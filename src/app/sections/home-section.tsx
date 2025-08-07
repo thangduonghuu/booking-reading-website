@@ -9,6 +9,7 @@ export default function HomeSection() {
       autoplay: true,
       loop: true,
       volume: 1.0,
+      html5: true,
       mute: true, // muted initially to allow autoplay
       onplay: () => {
         sound.mute(false) // unmute after it starts
@@ -30,7 +31,7 @@ export default function HomeSection() {
       sound.unload()
     }
   }, [])
-  
+
   return (
     <div className='flex flex-col items-center justify-center h-screen absolute w-full'>
       <Image
