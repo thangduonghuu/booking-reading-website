@@ -34,7 +34,7 @@ body {
     background-color: rgba(0, 0, 0, 0.5);
     opacity: 0.05;
     pointer-events: none;
-    background-image: url("/images/frame.png");
+    background-image: url("https://static.thangduong.info/public/frame.png");
     color: #aeae9d;
   }
 }
