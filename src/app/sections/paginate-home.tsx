@@ -1,6 +1,5 @@
 'use client';
 import { Swiper, SwiperSlide } from "swiper/react";
-
 import Image from "next/image";
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -15,7 +14,6 @@ export default function PaginateHome() {
             >
                 <SwiperSlide >
                     <div className="relative w-full h-full flex items-center justify-center ">
-
                         <Image
                             src="/images/home-background-1.png"
                             alt="Home"
