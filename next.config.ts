@@ -6,8 +6,7 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "static.thangduong.info",
-        port: "",
-        pathname: "/**",
+        pathname: "/public/**",
       },
     ],
   },
