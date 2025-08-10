@@ -1,23 +1,22 @@
-FROM node:20-bookworm-slim AS deps
+FROM node:21.7.3-bookworm-slim AS deps
 WORKDIR /app
-ENV npm_config_ignore_scripts=false TAILWIND_DISABLE_LIGHTNINGCSS=1
-COPY package.json package-lock.json* ./
+RUN npm i -g npm@10.5.0
+COPY package*.json ./
 RUN npm ci
 
-FROM node:20-bookworm-slim AS builder
+FROM node:21.7.3-bookworm-slim AS builder
 WORKDIR /app
-ENV TAILWIND_DISABLE_LIGHTNINGCSS=1
+RUN npm i -g npm@10.5.0
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN npm run build
 
-FROM node:20-bookworm-slim AS runner
+FROM node:21.7.3-bookworm-slim AS runner
 WORKDIR /app
 ENV NODE_ENV=production
-COPY package.json ./
-COPY --from=deps /app/node_modules ./node_modules
-RUN npm prune --omit=dev
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/public ./public
+RUN npm i -g npm@10.5.0
+COPY --from=builder /app ./
+RUN npm ci --omit=dev
+USER node
 EXPOSE 3000
 CMD ["npm", "run", "start"]
