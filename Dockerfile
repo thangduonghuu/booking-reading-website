@@ -1,32 +1,21 @@
-# Install dependencies only when needed
-FROM node:20-alpine AS deps
+FROM node:20-bookworm-slim AS deps
 WORKDIR /app
+COPY package.json package-lock.json* ./
+RUN npm ci
 
-# Install dependencies based on the lockfile
-COPY package.json pnpm-lock.yaml* ./
-RUN corepack enable && pnpm install --frozen-lockfile
-
-# Rebuild the source code only when needed
-FROM node:20-alpine AS builder
+FROM node:20-bookworm-slim AS builder
 WORKDIR /app
-
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+RUN npm run build
 
-RUN pnpm build
-
-# Production image
-FROM node:20-alpine AS runner
+FROM node:20-bookworm-slim AS runner
 WORKDIR /app
-
-ENV NODE_ENV production
-
-# Copy only necessary files
-COPY --from=builder /app/public ./public
+ENV NODE_ENV=production
+COPY package.json ./
+COPY --from=deps /app/node_modules ./node_modules
+RUN npm prune --omit=dev
 COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
-
+COPY --from=builder /app/public ./public
 EXPOSE 3000
-
-CMD ["pnpm", "start"]
+CMD ["npm", "run", "start"]
