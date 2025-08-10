@@ -1,7 +1,8 @@
 FROM node:20-bookworm-slim AS deps
 WORKDIR /app
+ENV npm_config_ignore_scripts=false
 COPY package.json package-lock.json* ./
-RUN npm ci
+RUN npm ci --include=optional && npm rebuild lightningcss
 
 FROM node:20-bookworm-slim AS builder
 WORKDIR /app
