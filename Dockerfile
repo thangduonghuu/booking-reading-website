@@ -9,6 +9,10 @@ WORKDIR /app
 RUN npm i -g npm@10.5.0
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+
+# Log versions before build
+RUN node -v && npm -v
+
 RUN npm run build
 
 FROM node:21.7.3-bookworm-slim AS runner
