@@ -1,11 +1,12 @@
 FROM node:20-bookworm-slim AS deps
 WORKDIR /app
-ENV npm_config_ignore_scripts=false
+ENV npm_config_ignore_scripts=false TAILWIND_DISABLE_LIGHTNINGCSS=1
 COPY package.json package-lock.json* ./
-RUN npm ci --include=optional && npm rebuild lightningcss
+RUN npm ci
 
 FROM node:20-bookworm-slim AS builder
 WORKDIR /app
+ENV TAILWIND_DISABLE_LIGHTNINGCSS=1
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN npm run build
