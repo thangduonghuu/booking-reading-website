@@ -20,6 +20,7 @@ export default function ThemeProviderApp({ children }: { children: React.ReactNo
           bottom: 20,
           right: 20,
           padding: '8px 12px',
+          // fontFamily: 'Motley Forces',
           borderRadius: 8,
           background: theme.palette.primary.main,
           color: theme.palette.primary.contrastText,

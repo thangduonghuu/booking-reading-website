@@ -4,10 +4,14 @@ import 'swiper/css/pagination';
 import Navbar from "./components/Navbar";
 import PaginateHome from "./sections/paginate-home";
 import { Button } from "./components/Button/Button";
+import Link from "next/link";
+import AudioBar from "./components/AudioBar/AudioBar";
+import { Typography } from "@mui/material";
 // import './styles.css';
 
 
 export default function Home() {
+
   return (
     <MusicProvider>
       <div className='flex flex-col h-dvh'>
@@ -19,10 +23,17 @@ export default function Home() {
             <h2 className="text-[16px] text-[#9D9D9D] pt-2">All your favourites book in one place, read any book, staying at home, on travelling, or anywhere else</h2>
           </div>
           <div className="pt-10">
-            <Button>Get Started</Button>
+            <Link href="/home">
+              <Button >
+                <Typography color="#000">
+                  Get Started
+                </Typography>
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
+      {/* <AudioBar src="/path/to/audio/file.mp3" /> */}
     </MusicProvider>
   );
 }

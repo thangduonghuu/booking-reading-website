@@ -1,9 +1,10 @@
 'use client';
-import { Tab, Tabs } from "@mui/material";
+import { Grid, Tab, Tabs } from "@mui/material";
 import Container from "../components/Container/container";
 import { SearchBar } from "../components/Searchbar/SearchBar";
 import { useState } from "react";
 import CardBook from "../components/CardBook/CardBook";
+import AudioBar from "../components/AudioBar/AudioBar";
 
 export default function HomePage() {
     const [tab, setTab] = useState(1)
@@ -25,9 +26,28 @@ export default function HomePage() {
                 </Tabs>
             </div>
             <div className="pt-4">
-                <CardBook title="Beyond the ocean door" author="J.D. Salinger" coverImage="/images/book-cover.jpg" />
-                <CardBook title="Beyond the ocean door" author="J.D. Salinger" coverImage="/images/book-cover-1.jpeg" />
+                <Grid container spacing={2}>
+                    <Grid size={2}>
+                        <CardBook title="Beyond the ocean door" author="J.D. Salinger" coverImage="/images/book-cover.jpg" />
+                    </Grid>
+                    <Grid size={2}>
+                        <CardBook title="Beyond the ocean door" author="J.D. Salinger" coverImage="/images/book-cover-1.jpeg" />
+                    </Grid>
+                    <Grid size={2}>
+                        <CardBook title="Beyond the ocean door" author="J.D. Salinger" coverImage="/images/book-cover-1.jpeg" />
+                    </Grid>
+                    <Grid size={2}>
+                        <CardBook title="Beyond the ocean door" author="J.D. Salinger" coverImage="/images/book-cover-1.jpeg" />
+                    </Grid>
+                    <Grid size={2}>
+                        <CardBook title="Beyond the ocean door" author="J.D. Salinger" coverImage="/images/book-cover-1.jpeg" />
+                    </Grid>
+                    <Grid size={2}>
+                        <CardBook title="Beyond the ocean door" author="J.D. Salinger" coverImage="/images/book-cover-1.jpeg" />
+                    </Grid>
+                </Grid>
             </div>
+            <AudioBar src="/path/to/your/audio/file.mp3" />
         </Container>
     )
 }

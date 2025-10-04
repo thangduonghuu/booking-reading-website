@@ -69,7 +69,7 @@ const baseTheme = (mode: "light" | "dark") => {
       borderRadius: 16,
     },
     typography: {
-      fontFamily: '"Poppins", "Helvetica", "Arial", sans-serif',
+      fontFamily: `'Motley Forces', 'Roboto', 'Helvetica', 'Arial', sans-serif`,
       allVariants: { color: "#FFFFFF" },
     },
     components: {
