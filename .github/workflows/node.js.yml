@@ -1,0 +1,40 @@
+name: Deploy Next.js App via SSH Pull & Build
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: SSH into VPS and deploy
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_PRIVATE_KEY }}
+          port: 22
+          script: |
+            APP_DIR="${{ secrets.APP_DIR }}"
+
+            echo ">>> Go to app directory..."
+            echo "$APP_DIR"
+            cd book-reading/
+
+            echo ">>> Pull latest code..."
+            git pull origin main
+
+            echo ">>> Install dependencies..."
+            npm ci
+
+            echo ">>> remove old Docker containers and images..."
+            docker rm -f book-reading && docker rmi book-reading-app
+
+            echo ">>> Build app..."
+            docker build --no-cache -t porfolio_nextjs-app .
+
+            echo ">>> Run app..."
+            docker run -d --name book-reading -p 3000:3000 book-reading-app
