@@ -37,7 +37,7 @@ jobs:
             docker build --no-cache -t app .
 
             echo ">>> Run app..."
-            docker run -d --name app -p 3000:3000 app
+            docker run -d --name app -p 3005:3000 app
 
             echo ">>> Verify deployment..."
             docker ps | grep app
