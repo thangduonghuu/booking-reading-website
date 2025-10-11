@@ -1,7 +1,8 @@
 version: '3.8'
 
 services:
-  book-reading-website:
+  app:
+    container_name: app
     build:
       context: .
       dockerfile: Dockerfile
