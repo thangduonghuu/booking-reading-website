@@ -31,10 +31,10 @@ jobs:
             npm ci
 
             echo ">>> remove old Docker containers and images..."
-            docker rm -f book-reading && docker rmi book-reading-app
+            docker rm -f book-reading-nest-app && docker rmi book-reading-nest-app
 
             echo ">>> Build app..."
-            docker build --no-cache -t porfolio_nextjs-app .
+            docker build --no-cache -t book-reading-nest-app .
 
             echo ">>> Run app..."
-            docker run -d --name book-reading -p 3000:3000 book-reading-app
+            docker run -d --name book-reading-nest-app -p 3000:3000 book-reading-app

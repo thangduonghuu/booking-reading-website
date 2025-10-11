@@ -7,7 +7,7 @@ import { Button } from "./components/Button/Button";
 import Link from "next/link";
 import AudioBar from "./components/AudioBar/AudioBar";
 import { Typography } from "@mui/material";
-// import './styles.css';
+// import './styles.css';∏
 
 
 export default function Home() {
@@ -20,12 +20,12 @@ export default function Home() {
           <PaginateHome />
           <div className="max-w-[350px] text-center mt-8">
             <h1 className="text-2xl font-bold">Read your favourite books</h1>
-            <h2 className="text-[16px] text-[#9D9D9D] pt-2">All your favourites book in one place, read any book, staying at home, on travelling, or anywhere else</h2>
+            <h2 className="text-[16px] text-[#9D9D9D] pt-2">All your favorites book in one place, read any book, staying at home, on travelling, or anywhere else</h2>
           </div>
           <div className="pt-10">
             <Link href="/home">
               <Button >
-                <Typography color="#000">
+                <Typography color="#9D9D9D">
                   Get Started
                 </Typography>
               </Button>
