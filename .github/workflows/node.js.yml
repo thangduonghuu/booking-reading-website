@@ -21,8 +21,7 @@ jobs:
             APP_DIR="${{ secrets.APP_DIR }}"
 
             echo ">>> Go to app directory..."
-            echo "$APP_DIR"
-            cd book-reading/
+            cd "$APP_DIR"
 
             echo ">>> Pull latest code..."
             git pull origin main
@@ -30,11 +29,15 @@ jobs:
             echo ">>> Install dependencies..."
             npm ci
 
-            echo ">>> remove old Docker containers and images..."
-            docker rm -f book-reading-app && docker rmi book-reading-app
+            echo ">>> Remove old Docker containers and images..."
+            docker rm -f app || true
+            docker rmi app || true
 
             echo ">>> Build app..."
-            docker build --no-cache -t book-reading-app .
+            docker build --no-cache -t app .
 
             echo ">>> Run app..."
-            docker run -d --name book-reading-app -p 3000:3000 book-reading-app
+            docker run -d --name app -p 3000:3000 app
+
+            echo ">>> Verify deployment..."
+            docker ps | grep app
