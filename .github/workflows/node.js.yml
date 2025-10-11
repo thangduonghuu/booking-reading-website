@@ -41,3 +41,5 @@ jobs:
 
             echo ">>> Verify deployment..."
             docker ps | grep app
+
+            docker-compose up -d
